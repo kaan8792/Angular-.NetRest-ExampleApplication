@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-5 align-items-center">
+      <h3 class="bg-primary text-white p-3">Faturalar</h3>
+
+      <div class="input-group">
+        <input type="text" #faturaMusteri class="form-control" placeholder="Müşteri">
+        <div class="input-group-append">
+            <span class="btn btn-primary" (click)="faturaEkle(faturaMusteri.value); faturaMusteri.value = ''">Ekle</span>
+        </div>
+      </div>
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Müşteri</th>
+            <th>Tutar</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fatura of faturas">
+            <td style="cursor: pointer;" (click)="onClick(fatura)">{{fatura.FaturaID}}</td>
+            <td style="cursor: pointer;" (click)="onClick(fatura)">{{fatura.Musteri}}</td>
+            <td style="cursor: pointer;" (click)="onClick(fatura)">{{fatura.Tutar}}TL</td>
+            <td style="text-align: center;"><span class="btn btn-danger" (click)="faturaSil(fatura.FaturaID)">Sil</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="showDetail" class="col-5 align-items-center">
+      <h4  class="bg-primary text-white p-3">{{fatura.FaturaID}} {{fatura.Musteri}} Fatura Detay</h4>
+
+      <div class="input-group">
+          <input type="text" #fdAciklama class="form-control" placeholder="Açiklama">
+          <input type="text" #fdMiktar class="form-control" placeholder="Miktar">
+          <input type="text" #fdBf class="form-control" placeholder="Birim Fiyat">
+          <div class="input-group-append">
+              <span class="btn btn-primary" (click)="faturaDetayEkle(fatura, fdAciklama.value,fdMiktar.value,fdBf.value);">Ekle</span>
+          </div>
+        </div>
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Açiklama</th>
+            <th>Miktar</th>
+            <th>Birim Fiyat</th>
+            <th>Toplam</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let faturaDetay of fatura.FaturaDetays">
+            <td>{{faturaDetay.FaturaDetayID}}</td>
+            <td>{{faturaDetay.Aciklama}}</td>
+            <td>{{faturaDetay.Miktar}}</td>
+            <td>{{faturaDetay.BirimFiyat}}TL</td>
+            <td>{{faturaDetay.BirimFiyat * faturaDetay.Miktar}}TL</td>
+            <td style="text-align: center;"><span class="btn btn-danger" (click)="detaySil(fatura,faturaDetay)">Sil</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
